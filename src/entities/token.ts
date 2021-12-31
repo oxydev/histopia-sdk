@@ -84,12 +84,10 @@ export const DefaultChainToken = {
   },
  
   [ChainId.OASISETH_MAIN]: {
-    BTC: new Token(ChainId.OASISETH_MAIN, '0xcdBed7aa78cb7c89EEF1dA8f0549B1f6daE8F6Ca', 18, 'BTC', 'BTC'),
+    ETH: new Token(ChainId.OASISETH_MAIN, '0xc3064a6dc257ccFcDE0e78A2B8aa7bC4B2DE31E5', 18, 'ETH', 'ETH'),
     USDT: new Token(ChainId.OASISETH_MAIN, '0xa17BbD50B11cA1d6d23F909ae40C4134D821AC5E', 18, 'USDT', 'USDT'),
-    ETHK: new Token(ChainId.OASISETH_MAIN, '0xc3064a6dc257ccFcDE0e78A2B8aa7bC4B2DE31E5', 18, 'ETHK', 'ETHK'),
-    WOKT: new Token(ChainId.OASISETH_MAIN, '0xe8b26036c2CF20E11Bbaf29D705362B0d71a430e', 18, 'WOKT', 'WOKT'),
-    OKB: new Token(ChainId.OASISETH_MAIN, '0xd6D32b08FEBE86C524aD0D2aE93f45549d0171D9', 18, 'OKB', 'OKB'),
-    ZOO: new Token(ChainId.OASISETH_MAIN, '0x44B80fb083c5a9cE87fb335D59DDba54035dB1fd', 18, 'ZOO', 'ZOO'),
+    BTC: new Token(ChainId.OASISETH_MAIN, '0xcdBed7aa78cb7c89EEF1dA8f0549B1f6daE8F6Ca', 18, 'BTC', 'BTC'),
+    YUZU: new Token(ChainId.OASISETH_MAIN, '0xF2424175fB3e170800d10F26A2360f31242812E6', 18, 'YUZU', 'YUZU'),
   },
   [ChainId.HECO]: {
     ETH: new Token(ChainId.HECO, '0x64FF637fB478863B7468bc97D30a5bF3A428a1fD', 18, 'ETH', 'ETH'),
@@ -246,7 +244,7 @@ export const SUSHI_ADDRESS: { [chainId in ChainId]: string } = {
   [ChainId.OKCHAIN_TEST]: DefaultChainToken[ChainId.OKCHAIN_TEST].ZOO.address,
   [ChainId.OKCHAIN]: '0xd00ae08403B9bbb9124bB305C09058E32C39A48c',
   [ChainId.HECO]: '',
-  [ChainId.OASISETH]: '',
+  [ChainId.OASISETH_MAIN]: '',
   [ChainId.OASISETH_TEST]: DefaultChainToken[ChainId.OASISETH_TEST].YUZU.address,
   [ChainId.HECO_TESTNET]: ''
 }
