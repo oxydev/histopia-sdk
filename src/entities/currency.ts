@@ -53,7 +53,7 @@ export class Currency {
     [ChainId.OKCHAIN]: Currency.OKT,
     [ChainId.FUJI]: Currency.AVAX,
     [ChainId.HECO]: Currency.HT,
-    [ChainId.OASISETH]: Currency.OKT,
+    [ChainId.OASISETH_MAIN]: Currency.ROSE,
     [ChainId.OASISETH_TEST]: Currency.ROSE,
     [ChainId.HECO_TESTNET]: Currency.HT
   }
