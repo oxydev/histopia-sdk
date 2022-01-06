@@ -84,9 +84,8 @@ export const DefaultChainToken = {
   },
  
   [ChainId.OASISETH_MAIN]: {
-    ETH: new Token(ChainId.OASISETH_MAIN, '0xc3064a6dc257ccFcDE0e78A2B8aa7bC4B2DE31E5', 18, 'ETH', 'ETH'),
-    USDT: new Token(ChainId.OASISETH_MAIN, '0xa17BbD50B11cA1d6d23F909ae40C4134D821AC5E', 18, 'USDT', 'USDT'),
-    BTC: new Token(ChainId.OASISETH_MAIN, '0xcdBed7aa78cb7c89EEF1dA8f0549B1f6daE8F6Ca', 18, 'BTC', 'BTC'),
+    ETH: new Token(ChainId.OASISETH_MAIN, '0x3223f17957Ba502cbe71401D55A0DB26E5F7c68F', 18, 'wETH', 'wETH'),
+    USDT: new Token(ChainId.OASISETH_MAIN, '0xdC19A122e268128B5eE20366299fc7b5b199C8e3', 18, 'weUSDT', 'weUSDT'),
     YUZU: new Token(ChainId.OASISETH_MAIN, '0xF2424175fB3e170800d10F26A2360f31242812E6', 18, 'YUZU', 'YUZU'),
   },
   [ChainId.HECO]: {
@@ -209,16 +208,16 @@ export const WETH = {
   [ChainId.OKCHAIN]: DefaultChainToken[ChainId.OKCHAIN_TEST].WOKT,
   [ChainId.OASISETH_MAIN]: new Token(
     ChainId.OASISETH_MAIN,
-    '0x5C78A65AD6D0eC6618788b6E8e211F31729111Ca',
+    '0x21C718C22D52d0F3a789b752D4c2fD5908a8A733',
     18,
-    'WROSE',
+    'wROSE',
     'Wrapped ROSE'
   ),
   [ChainId.OASISETH_TEST]: new Token(
     ChainId.OASISETH_TEST,
     '0x792296e2a15e6Ceb5f5039DecaE7A1f25b00B0B0',
     18,
-    'WROSE',
+    'wROSE',
     'Wrapped ROSE'
   ),
 }
