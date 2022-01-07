@@ -85,7 +85,7 @@ export const DefaultChainToken = {
  
   [ChainId.OASISETH_MAIN]: {
     ETH: new Token(ChainId.OASISETH_MAIN, '0x3223f17957Ba502cbe71401D55A0DB26E5F7c68F', 18, 'wETH', 'wETH'),
-    USDT: new Token(ChainId.OASISETH_MAIN, '0xdC19A122e268128B5eE20366299fc7b5b199C8e3', 18, 'weUSDT', 'weUSDT'),
+    USDT: new Token(ChainId.OASISETH_MAIN, '0xdC19A122e268128B5eE20366299fc7b5b199C8e3', 6, 'weUSDT', 'weUSDT'),
     YUZU: new Token(ChainId.OASISETH_MAIN, '0x2Fa61d3C651aBF440Ad30F80C04CD192246Ea875', 18, 'YUZU', 'YUZU'),
   },
   [ChainId.HECO]: {
