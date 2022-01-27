@@ -1,0 +1,42 @@
+name: Deploy
+on:
+  # manual trigger
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
+
+
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12'
+
+      - name: Install dependencies
+        run: yarn
+
+#      - name: Tests pass
+#        run: yarn test
+
+      - name: set up git 
+        run:  |
+          git config --global user.email "GitHubRobot@yuzu-swap.com" 
+          git config --global user.name "GitHubRobot"
+
+      - name: Version patch
+        run: npm version patch
+
+      - name:  Git push
+        run: git push origin HEAD:master
+
+      - name: Publish to NPM
+        uses: JS-DevTools/npm-publish@18351461ae08dde235c0ccee0633ec905f0b9a52
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
