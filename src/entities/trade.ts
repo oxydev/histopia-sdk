@@ -2,7 +2,7 @@ import invariant from 'tiny-invariant'
 
 import { ChainId, ONE, TradeType, ZERO } from '../constants'
 import { sortedInsert } from '../utils'
-import { Currency, IsNative } from './currency'
+import { Currency, ETHER } from './currency'
 import { CurrencyAmount } from './fractions/currencyAmount'
 import { Fraction } from './fractions/fraction'
 import { Percent } from './fractions/percent'
@@ -88,24 +88,14 @@ export interface BestTradeOptions {
  * the input currency amount.
  */
 function wrappedAmount(currencyAmount: CurrencyAmount, chainId: ChainId): TokenAmount {
-  console.log(currencyAmount, chainId);
-
-  let nativeToken = Currency.getNativeCurrency(chainId)
-  console.log(nativeToken);
-
   if (currencyAmount instanceof TokenAmount) return currencyAmount
-  if (currencyAmount.currency === nativeToken) return new TokenAmount(WETH[chainId], currencyAmount.raw)
+  if (currencyAmount.currency === ETHER) return new TokenAmount(WETH[chainId], currencyAmount.raw)
   invariant(false, 'CURRENCY')
 }
 
 function wrappedCurrency(currency: Currency, chainId: ChainId): Token {
-  console.log(currency, chainId);
-
-  let nativeToken = Currency.getNativeCurrency(chainId)
-  console.log(nativeToken);
-
   if (currency instanceof Token) return currency
-  if (currency === nativeToken) return WETH[chainId]
+  if (currency === ETHER) return WETH[chainId]
   invariant(false, 'CURRENCY')
 }
 
@@ -165,6 +155,8 @@ export class Trade {
     const amounts: TokenAmount[] = new Array(route.path.length)
     const nextPairs: Pair[] = new Array(route.pairs.length)
     if (tradeType === TradeType.EXACT_INPUT) {
+      console.log(amount, route.input);
+      
       invariant(currencyEquals(amount.currency, route.input), 'INPUT')
       amounts[0] = wrappedAmount(amount, route.chainId)
       for (let i = 0; i < route.path.length - 1; i++) {
@@ -184,20 +176,19 @@ export class Trade {
       }
     }
 
-    let nativeToken = Currency.getNativeCurrency(route.chainId)
     this.route = route
     this.tradeType = tradeType
     this.inputAmount =
       tradeType === TradeType.EXACT_INPUT
         ? amount
-        : IsNative(route.input)
-        ? new CurrencyAmount(nativeToken, amounts[0].raw)
+        : route.input === ETHER
+        ? CurrencyAmount.ether(amounts[0].raw)
         : amounts[0]
     this.outputAmount =
       tradeType === TradeType.EXACT_OUTPUT
         ? amount
-        : IsNative(route.output)
-        ? new CurrencyAmount(nativeToken, amounts[amounts.length - 1].raw)
+        : route.output === ETHER
+        ? CurrencyAmount.ether(amounts[amounts.length - 1].raw)
         : amounts[amounts.length - 1]
     this.executionPrice = new Price(
       this.inputAmount.currency,

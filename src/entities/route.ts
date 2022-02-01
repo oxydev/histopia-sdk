@@ -1,7 +1,7 @@
 import { ChainId } from '../constants'
 import invariant from 'tiny-invariant'
 
-import { Currency } from './currency'
+import { Currency, ETHER } from './currency'
 import { Token, WETH } from './token'
 import { Pair } from './pair'
 import { Price } from './fractions/price'
@@ -14,22 +14,20 @@ export class Route {
   public readonly midPrice: Price
 
   public constructor(pairs: Pair[], input: Currency, output?: Currency) {
-
     invariant(pairs.length > 0, 'PAIRS')
     invariant(
       pairs.every(pair => pair.chainId === pairs[0].chainId),
       'CHAIN_IDS'
     )
-    let nativeToken = Currency.getNativeCurrency(pairs[0].chainId)
     invariant(
       (input instanceof Token && pairs[0].involvesToken(input)) ||
-        (input === nativeToken && pairs[0].involvesToken(WETH[pairs[0].chainId])),
+        (input === ETHER && pairs[0].involvesToken(WETH[pairs[0].chainId])),
       'INPUT'
     )
     invariant(
       typeof output === 'undefined' ||
         (output instanceof Token && pairs[pairs.length - 1].involvesToken(output)) ||
-        (output === nativeToken && pairs[pairs.length - 1].involvesToken(WETH[pairs[0].chainId])),
+        (output === ETHER && pairs[pairs.length - 1].involvesToken(WETH[pairs[0].chainId])),
       'OUTPUT'
     )
 

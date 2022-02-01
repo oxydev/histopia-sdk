@@ -427,15 +427,14 @@ var Currency = /*#__PURE__*/function () {
     if (!chainId) {
       return this === null || this === void 0 ? void 0 : this.symbol;
     }
-    /*
-    if (this?.symbol === 'ETH') {
-      return Currency.getNativeCurrencySymbol(chainId)
-    }
-    */
-    // if (this?.symbol === 'WETH') {
-    //   return `W${Currency.getNativeCurrencySymbol(chainId)}`
-    // }
 
+    if ((this === null || this === void 0 ? void 0 : this.symbol) === 'ETH') {
+      return Currency.getNativeCurrencySymbol(chainId);
+    }
+
+    if ((this === null || this === void 0 ? void 0 : this.symbol) === 'WETH') {
+      return "W" + Currency.getNativeCurrencySymbol(chainId);
+    }
 
     return this === null || this === void 0 ? void 0 : this.symbol;
   };
@@ -1113,9 +1112,8 @@ var Route = /*#__PURE__*/function () {
     !pairs.every(function (pair) {
       return pair.chainId === pairs[0].chainId;
     }) ? process.env.NODE_ENV !== "production" ? invariant(false, 'CHAIN_IDS') : invariant(false) : void 0;
-    var nativeToken = Currency.getNativeCurrency(pairs[0].chainId);
-    !(input instanceof Token && pairs[0].involvesToken(input) || input === nativeToken && pairs[0].involvesToken(WETH[pairs[0].chainId])) ? process.env.NODE_ENV !== "production" ? invariant(false, 'INPUT') : invariant(false) : void 0;
-    !(typeof output === 'undefined' || output instanceof Token && pairs[pairs.length - 1].involvesToken(output) || output === nativeToken && pairs[pairs.length - 1].involvesToken(WETH[pairs[0].chainId])) ? process.env.NODE_ENV !== "production" ? invariant(false, 'OUTPUT') : invariant(false) : void 0;
+    !(input instanceof Token && pairs[0].involvesToken(input) || input === ETHER && pairs[0].involvesToken(WETH[pairs[0].chainId])) ? process.env.NODE_ENV !== "production" ? invariant(false, 'INPUT') : invariant(false) : void 0;
+    !(typeof output === 'undefined' || output instanceof Token && pairs[pairs.length - 1].involvesToken(output) || output === ETHER && pairs[pairs.length - 1].involvesToken(WETH[pairs[0].chainId])) ? process.env.NODE_ENV !== "production" ? invariant(false, 'OUTPUT') : invariant(false) : void 0;
     var path = [input instanceof Token ? input : WETH[pairs[0].chainId]];
 
     for (var _iterator = _createForOfIteratorHelperLoose(pairs.entries()), _step; !(_step = _iterator()).done;) {
@@ -1243,16 +1241,14 @@ function tradeComparator(a, b) {
  */
 
 function wrappedAmount(currencyAmount, chainId) {
-  var nativeToken = Currency.getNativeCurrency(chainId);
   if (currencyAmount instanceof TokenAmount) return currencyAmount;
-  if (currencyAmount.currency === nativeToken) return new TokenAmount(WETH[chainId], currencyAmount.raw);
+  if (currencyAmount.currency === ETHER) return new TokenAmount(WETH[chainId], currencyAmount.raw);
    process.env.NODE_ENV !== "production" ? invariant(false, 'CURRENCY') : invariant(false) ;
 }
 
 function wrappedCurrency(currency, chainId) {
-  var nativeToken = Currency.getNativeCurrency(chainId);
   if (currency instanceof Token) return currency;
-  if (currency === nativeToken) return WETH[chainId];
+  if (currency === ETHER) return WETH[chainId];
    process.env.NODE_ENV !== "production" ? invariant(false, 'CURRENCY') : invariant(false) ;
 }
 /**
@@ -1267,6 +1263,7 @@ var Trade = /*#__PURE__*/function () {
     var nextPairs = new Array(route.pairs.length);
 
     if (tradeType === TradeType.EXACT_INPUT) {
+      console.log(amount, route.input);
       !currencyEquals(amount.currency, route.input) ? process.env.NODE_ENV !== "production" ? invariant(false, 'INPUT') : invariant(false) : void 0;
       amounts[0] = wrappedAmount(amount, route.chainId);
 
@@ -1296,11 +1293,10 @@ var Trade = /*#__PURE__*/function () {
       }
     }
 
-    var nativeToken = Currency.getNativeCurrency(route.chainId);
     this.route = route;
     this.tradeType = tradeType;
-    this.inputAmount = tradeType === TradeType.EXACT_INPUT ? amount : IsNative(route.input) ? new CurrencyAmount(nativeToken, amounts[0].raw) : amounts[0];
-    this.outputAmount = tradeType === TradeType.EXACT_OUTPUT ? amount : IsNative(route.output) ? new CurrencyAmount(nativeToken, amounts[amounts.length - 1].raw) : amounts[amounts.length - 1];
+    this.inputAmount = tradeType === TradeType.EXACT_INPUT ? amount : route.input === ETHER ? CurrencyAmount.ether(amounts[0].raw) : amounts[0];
+    this.outputAmount = tradeType === TradeType.EXACT_OUTPUT ? amount : route.output === ETHER ? CurrencyAmount.ether(amounts[amounts.length - 1].raw) : amounts[amounts.length - 1];
     this.executionPrice = new Price(this.inputAmount.currency, this.outputAmount.currency, this.inputAmount.raw, this.outputAmount.raw);
     this.nextMidPrice = Price.fromRoute(new Route(nextPairs, route.input));
     this.priceImpact = computePriceImpact(route.midPrice, this.inputAmount, this.outputAmount);

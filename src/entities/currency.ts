@@ -98,15 +98,15 @@ export class Currency {
       return this?.symbol
     }
 
-    /*
+    
     if (this?.symbol === 'ETH') {
       return Currency.getNativeCurrencySymbol(chainId)
     }
-    */
+    
 
-    // if (this?.symbol === 'WETH') {
-    //   return `W${Currency.getNativeCurrencySymbol(chainId)}`
-    // }
+    if (this?.symbol === 'WETH') {
+      return `W${Currency.getNativeCurrencySymbol(chainId)}`
+    }
 
     return this?.symbol
   }
