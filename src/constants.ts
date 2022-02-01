@@ -80,7 +80,7 @@ export const ROUTER_ADDRESS: { [chainId in ChainId]: string } = {
   [ChainId.FANTOM]: '0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506',
   [ChainId.FANTOM_TESTNET]: '',
   [ChainId.MATIC]: '0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506',
-  [ChainId.MATIC_TESTNET]: '0xfb77361a09a716b03541063d46fa8629bb0c60ba',
+  [ChainId.MATIC_TESTNET]: '0xa05BE3A2207efc5A56df08562F6170AE2710e9B9',
   [ChainId.XDAI]: '0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506',
   [ChainId.BSC]: '0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506',
   [ChainId.BSC_TESTNET]: '0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506',
@@ -171,7 +171,6 @@ export const ZOO_MINI_PARK_ADDRESS: { [chainId in ChainId]?: string } = {
 }
 
 
-
 //No use 
 export const MASTERCHEF_ADDRESS: { [chainId in ChainId]: string } = {
   [ChainId.MAINNET]: '0xc2EdaD668740f1aA35E4D8f227fB8E17dcA888Cd',
@@ -182,7 +181,7 @@ export const MASTERCHEF_ADDRESS: { [chainId in ChainId]: string } = {
   [ChainId.FANTOM]: '',
   [ChainId.FANTOM_TESTNET]: '',
   [ChainId.MATIC]: '',
-  [ChainId.MATIC_TESTNET]: '',
+  [ChainId.MATIC_TESTNET]: '0x88a22a53d94e276e4dce0320cecf48c1c559e522',
   [ChainId.XDAI]: '',
   [ChainId.BSC]: '',
   [ChainId.BSC_TESTNET]: '',
