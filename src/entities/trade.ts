@@ -88,14 +88,22 @@ export interface BestTradeOptions {
  * the input currency amount.
  */
 function wrappedAmount(currencyAmount: CurrencyAmount, chainId: ChainId): TokenAmount {
+  console.log(currencyAmount, chainId);
+
   let nativeToken = Currency.getNativeCurrency(chainId)
+  console.log(nativeToken);
+
   if (currencyAmount instanceof TokenAmount) return currencyAmount
   if (currencyAmount.currency === nativeToken) return new TokenAmount(WETH[chainId], currencyAmount.raw)
   invariant(false, 'CURRENCY')
 }
 
 function wrappedCurrency(currency: Currency, chainId: ChainId): Token {
+  console.log(currency, chainId);
+
   let nativeToken = Currency.getNativeCurrency(chainId)
+  console.log(nativeToken);
+
   if (currency instanceof Token) return currency
   if (currency === nativeToken) return WETH[chainId]
   invariant(false, 'CURRENCY')
