@@ -86,7 +86,11 @@ export const DefaultChainToken = {
     OKB: new Token(ChainId.OKCHAIN_TEST, '0xDa9d14072Ef2262c64240Da3A93fea2279253611', 10, 'OKB', 'OKB'),
     ZOO: new Token(ChainId.OKCHAIN_TEST, '0xd56F1F930760BD93871B96E36CDB5dda7d3D7108', 18, 'ZOO', 'ZOO'),
   },
- 
+  [ChainId.MATIC_TESTNET]: {
+    BTC: new Token(ChainId.MATIC_TESTNET, '0xafacf8468d769208d4a1c84d4ea63320fd75ffaa', 18, 'BTC', 'BTC'),
+    USDT: new Token(ChainId.MATIC_TESTNET, '0xfcf1fa21fa89b2fb50b77a621b3fe38233401a29', 18, 'USDT', 'USDT'),
+  },
+
   [ChainId.OASISETH_MAIN]: {
     ETH: new Token(ChainId.OASISETH_MAIN, '0x3223f17957Ba502cbe71401D55A0DB26E5F7c68F', 18, 'wETH', 'wETH'),
     USDT: new Token(ChainId.OASISETH_MAIN, '0xdC19A122e268128B5eE20366299fc7b5b199C8e3', 6, 'weUSDT', 'weUSDT'),
@@ -164,7 +168,7 @@ export const WETH = {
   ),
   [ChainId.MATIC_TESTNET]: new Token(
     ChainId.MATIC_TESTNET,
-    '0x5B67676a984807a212b1c59eBFc9B3568a474F0a',
+    '0x9b506afc4765af3f4af8458cab17eedd546fa01e',
     18,
     'WMATIC',
     'Wrapped Matic'
