@@ -56,7 +56,11 @@ export declare const DefaultChainToken: {
     42262: {
         ETH: Token;
         USDT: Token;
-        BLING: Token;
+        YUZU: Token;
+        PETAL: Token;
+        TULIP: Token;
+        DUNE: Token;
+        WBTC: Token;
     };
     128: {
         ETH: Token;
