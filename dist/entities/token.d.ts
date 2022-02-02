@@ -33,7 +33,6 @@ export declare const DefaultChainToken: {
         USDT: Token;
         BTC: Token;
         ETH: Token;
-        YUZU: Token;
     };
     66: {
         USDT: Token;
@@ -57,7 +56,7 @@ export declare const DefaultChainToken: {
     42262: {
         ETH: Token;
         USDT: Token;
-        YUZU: Token;
+        BLING: Token;
     };
     128: {
         ETH: Token;
@@ -85,7 +84,6 @@ export declare const DefaultChainToken: {
         ETH: Token;
         USDT: Token;
         BTC: Token;
-        YUZU: Token;
     };
 };
 export declare const WETH: {

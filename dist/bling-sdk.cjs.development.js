@@ -12,7 +12,6 @@ var _Big = _interopDefault(require('big.js'));
 var toFormat = _interopDefault(require('toformat'));
 var _Decimal = _interopDefault(require('decimal.js-light'));
 var solidity = require('@ethersproject/solidity');
-var decimal_js = require('decimal.js');
 var contracts = require('@ethersproject/contracts');
 var networks = require('@ethersproject/networks');
 var providers = require('@ethersproject/providers');
@@ -408,6 +407,7 @@ var Currency = /*#__PURE__*/function () {
       throw Error("No native currency defined for chainId " + chainId);
     }
 
+    console.log(Currency.NATIVE[chainId]);
     return Currency.NATIVE[chainId];
   };
 
@@ -429,6 +429,7 @@ var Currency = /*#__PURE__*/function () {
     }
 
     if ((this === null || this === void 0 ? void 0 : this.symbol) === 'ETH') {
+      console.log(Currency.getNativeCurrencySymbol(chainId));
       return Currency.getNativeCurrencySymbol(chainId);
     }
 
@@ -436,6 +437,7 @@ var Currency = /*#__PURE__*/function () {
       return "W" + Currency.getNativeCurrencySymbol(chainId);
     }
 
+    console.log(this === null || this === void 0 ? void 0 : this.symbol);
     return this === null || this === void 0 ? void 0 : this.symbol;
   };
 
@@ -539,8 +541,7 @@ var DefaultChainToken = (_DefaultChainToken = {}, _DefaultChainToken[exports.Cha
   ROSE: /*#__PURE__*/new Token(exports.ChainId.ROPSTEN, '0xD647d75154cF0616Ba06Af944E7e602F8AE75086', 9, 'ROSE', 'ROSE'),
   USDT: /*#__PURE__*/new Token(exports.ChainId.ROPSTEN, '0xcA8A7B55A04A9fdE7Ae7bf128384fa330F81A19c', 12, 'USDT', 'USDT'),
   BTC: /*#__PURE__*/new Token(exports.ChainId.ROPSTEN, '0xe6c87C360C24EfC6FEf4DCeFeD5607b0adaCf936', 15, 'BTC', 'BTC'),
-  ETH: /*#__PURE__*/new Token(exports.ChainId.ROPSTEN, '0xf72C1522a1d430464f194295bC3EF0f2F479459D', 18, 'ETH', 'ETH'),
-  YUZU: /*#__PURE__*/new Token(exports.ChainId.ROPSTEN, '0x015e3f7A499B4bdD2104470b1324d5940C3447AC', 18, 'YUZU', 'YUZU')
+  ETH: /*#__PURE__*/new Token(exports.ChainId.ROPSTEN, '0xf72C1522a1d430464f194295bC3EF0f2F479459D', 18, 'ETH', 'ETH')
 }, _DefaultChainToken[exports.ChainId.OKCHAIN] = {
   USDT: /*#__PURE__*/new Token(exports.ChainId.OKCHAIN_TEST, '0x382bB369d343125BfB2117af9c149795C6C65C50', 18, 'USDT', 'USDT'),
   OKB: /*#__PURE__*/new Token(exports.ChainId.OKCHAIN_TEST, '0xdF54B6c6195EA4d948D03bfD818D365cf175cFC2', 18, 'OKB', 'OKB'),
@@ -560,7 +561,7 @@ var DefaultChainToken = (_DefaultChainToken = {}, _DefaultChainToken[exports.Cha
 }, _DefaultChainToken[exports.ChainId.OASISETH_MAIN] = {
   ETH: /*#__PURE__*/new Token(exports.ChainId.OASISETH_MAIN, '0x3223f17957Ba502cbe71401D55A0DB26E5F7c68F', 18, 'wETH', 'wETH'),
   USDT: /*#__PURE__*/new Token(exports.ChainId.OASISETH_MAIN, '0xdC19A122e268128B5eE20366299fc7b5b199C8e3', 6, 'weUSDT', 'weUSDT'),
-  YUZU: /*#__PURE__*/new Token(exports.ChainId.OASISETH_MAIN, '0xf02b3e437304892105992512539F769423a515Cb', 18, 'YUZU', 'YUZU')
+  BLING: /*#__PURE__*/new Token(exports.ChainId.OASISETH_MAIN, '0xf02b3e437304892105992512539F769423a515Cb', 18, 'BLING', 'BLING')
 }, _DefaultChainToken[exports.ChainId.HECO] = {
   ETH: /*#__PURE__*/new Token(exports.ChainId.HECO, '0x64FF637fB478863B7468bc97D30a5bF3A428a1fD', 18, 'ETH', 'ETH'),
   HBTC: /*#__PURE__*/new Token(exports.ChainId.HECO, '0x66a79D23E58475D2738179Ca52cd0b41d73f0BEa', 18, 'HBTC', 'HBTC'),
@@ -585,13 +586,12 @@ var DefaultChainToken = (_DefaultChainToken = {}, _DefaultChainToken[exports.Cha
 }, _DefaultChainToken[exports.ChainId.OASISETH_TEST] = {
   ETH: /*#__PURE__*/new Token(exports.ChainId.OASISETH_TEST, '0xB38C1c2b5b0963428642eC55a320b429f21E180C', 18, 'ETH', 'ETH'),
   USDT: /*#__PURE__*/new Token(exports.ChainId.OASISETH_TEST, '0xC584fFD011e16A10fd8329853B9B8DE6E0313AD9', 18, 'USDT', 'USDT'),
-  BTC: /*#__PURE__*/new Token(exports.ChainId.OASISETH_TEST, '0x961C7a3f1909243C9af056Fd11EdDa2e18b35C7b', 18, 'BTC', 'BTC'),
-  YUZU: /*#__PURE__*/new Token(exports.ChainId.OASISETH_TEST, '0x59e573F48D379D95064811e3C59546f2f350bb2b', 18, 'YUZU', 'YUZU')
+  BTC: /*#__PURE__*/new Token(exports.ChainId.OASISETH_TEST, '0x961C7a3f1909243C9af056Fd11EdDa2e18b35C7b', 18, 'BTC', 'BTC')
 }, _DefaultChainToken); // In reality this is a map of the wrapped version of the native token for a given network.
 // TODO: Rename to WNATIVE for sanity
 
 var WETH = (_WETH = {}, _WETH[exports.ChainId.MAINNET] = /*#__PURE__*/new Token(exports.ChainId.MAINNET, '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2', 18, 'WETH', 'Wrapped Ether'), _WETH[exports.ChainId.ROPSTEN] = /*#__PURE__*/new Token(exports.ChainId.ROPSTEN, '0xc778417E063141139Fce010982780140Aa0cD5Ab', 18, 'WETH', 'Wrapped Ether'), _WETH[exports.ChainId.RINKEBY] = /*#__PURE__*/new Token(exports.ChainId.RINKEBY, '0xc778417E063141139Fce010982780140Aa0cD5Ab', 18, 'WETH', 'Wrapped Ether'), _WETH[exports.ChainId.GÖRLI] = /*#__PURE__*/new Token(exports.ChainId.GÖRLI, '0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6', 18, 'WETH', 'Wrapped Ether'), _WETH[exports.ChainId.KOVAN] = /*#__PURE__*/new Token(exports.ChainId.KOVAN, '0xd0A1E359811322d97991E03f863a0C30C2cF029C', 18, 'WETH', 'Wrapped Ether'), _WETH[exports.ChainId.FANTOM] = /*#__PURE__*/new Token(exports.ChainId.FANTOM, '0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83', 18, 'WFTM', 'Wrapped FTM'), _WETH[exports.ChainId.FANTOM_TESTNET] = /*#__PURE__*/new Token(exports.ChainId.FANTOM_TESTNET, '0xf1277d1Ed8AD466beddF92ef448A132661956621', 18, 'FTM', 'Wrapped FTM'), _WETH[exports.ChainId.MATIC] = /*#__PURE__*/new Token(exports.ChainId.MATIC, '0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270', 18, 'WMATIC', 'Wrapped Matic'), _WETH[exports.ChainId.MATIC_TESTNET] = /*#__PURE__*/new Token(exports.ChainId.MATIC_TESTNET, '0x9b506afc4765af3f4af8458cab17eedd546fa01e', 18, 'WMATIC', 'Wrapped Matic'), _WETH[exports.ChainId.XDAI] = /*#__PURE__*/new Token(exports.ChainId.XDAI, '0xe91D153E0b41518A2Ce8Dd3D7944Fa863463a97d', 18, 'WXDAI', 'Wrapped xDai'), _WETH[exports.ChainId.BSC] = /*#__PURE__*/new Token(exports.ChainId.BSC, '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c', 18, 'WBNB', 'Wrapped BNB'), _WETH[exports.ChainId.BSC_TESTNET] = /*#__PURE__*/new Token(exports.ChainId.BSC_TESTNET, '0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd', 18, 'WBNB', 'Wrapped BNB'), _WETH[exports.ChainId.ARBITRUM] = /*#__PURE__*/new Token(exports.ChainId.ARBITRUM, '0xf8456e5e6A225C2C1D74D8C9a4cB2B1d5dc1153b', 18, 'WETH', 'Wrapped Ether'), _WETH[exports.ChainId.MOONBASE] = /*#__PURE__*/new Token(exports.ChainId.MOONBASE, '0xe73763DB808ecCDC0E36bC8E32510ED126910394', 18, 'WETH', 'Wrapped Ether'), _WETH[exports.ChainId.AVALANCHE] = /*#__PURE__*/new Token(exports.ChainId.AVALANCHE, '0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7', 18, 'WAVAX', 'Wrapped AVAX'), _WETH[exports.ChainId.FUJI] = /*#__PURE__*/new Token(exports.ChainId.FUJI, '0xd00ae08403B9bbb9124bB305C09058E32C39A48c', 18, 'WAVAX', 'Wrapped AVAX'), _WETH[exports.ChainId.HECO] = DefaultChainToken[exports.ChainId.HECO].WHT, _WETH[exports.ChainId.HECO_TESTNET] = /*#__PURE__*/new Token(exports.ChainId.HECO_TESTNET, '0x5B2DA6F42CA09C77D577a12BeaD0446148830687', 18, 'WHT', 'Wrapped HT'), _WETH[exports.ChainId.OKCHAIN_TEST] = DefaultChainToken[exports.ChainId.OKCHAIN_TEST].WOKT, _WETH[exports.ChainId.OKCHAIN] = DefaultChainToken[exports.ChainId.OKCHAIN_TEST].WOKT, _WETH[exports.ChainId.OASISETH_MAIN] = /*#__PURE__*/new Token(exports.ChainId.OASISETH_MAIN, '0x21C718C22D52d0F3a789b752D4c2fD5908a8A733', 18, 'wROSE', 'Wrapped ROSE'), _WETH[exports.ChainId.OASISETH_TEST] = /*#__PURE__*/new Token(exports.ChainId.OASISETH_TEST, '0x792296e2a15e6Ceb5f5039DecaE7A1f25b00B0B0', 18, 'wROSE', 'Wrapped ROSE'), _WETH);
-var SUSHI_ADDRESS = (_SUSHI_ADDRESS = {}, _SUSHI_ADDRESS[exports.ChainId.MAINNET] = '0x6B3595068778DD592e39A122f4f5a5cF09C90fE2', _SUSHI_ADDRESS[exports.ChainId.ROPSTEN] = DefaultChainToken[exports.ChainId.ROPSTEN].YUZU.address, _SUSHI_ADDRESS[exports.ChainId.RINKEBY] = '0x0769fd68dFb93167989C6f7254cd0D766Fb2841F', _SUSHI_ADDRESS[exports.ChainId.GÖRLI] = '0x0769fd68dFb93167989C6f7254cd0D766Fb2841F', _SUSHI_ADDRESS[exports.ChainId.KOVAN] = '0x0769fd68dFb93167989C6f7254cd0D766Fb2841F', _SUSHI_ADDRESS[exports.ChainId.FANTOM] = '', _SUSHI_ADDRESS[exports.ChainId.FANTOM_TESTNET] = '', _SUSHI_ADDRESS[exports.ChainId.MATIC] = '', _SUSHI_ADDRESS[exports.ChainId.MATIC_TESTNET] = '', _SUSHI_ADDRESS[exports.ChainId.XDAI] = '', _SUSHI_ADDRESS[exports.ChainId.BSC] = '', _SUSHI_ADDRESS[exports.ChainId.BSC_TESTNET] = '', _SUSHI_ADDRESS[exports.ChainId.ARBITRUM] = '', _SUSHI_ADDRESS[exports.ChainId.MOONBASE] = '', _SUSHI_ADDRESS[exports.ChainId.AVALANCHE] = '', _SUSHI_ADDRESS[exports.ChainId.FUJI] = '', _SUSHI_ADDRESS[exports.ChainId.OKCHAIN_TEST] = DefaultChainToken[exports.ChainId.OKCHAIN_TEST].ZOO.address, _SUSHI_ADDRESS[exports.ChainId.OKCHAIN] = '0xd00ae08403B9bbb9124bB305C09058E32C39A48c', _SUSHI_ADDRESS[exports.ChainId.HECO] = '', _SUSHI_ADDRESS[exports.ChainId.OASISETH_MAIN] = '', _SUSHI_ADDRESS[exports.ChainId.OASISETH_TEST] = DefaultChainToken[exports.ChainId.OASISETH_TEST].YUZU.address, _SUSHI_ADDRESS[exports.ChainId.HECO_TESTNET] = '', _SUSHI_ADDRESS); // 平台币
+var SUSHI_ADDRESS = (_SUSHI_ADDRESS = {}, _SUSHI_ADDRESS[exports.ChainId.MAINNET] = '0x6B3595068778DD592e39A122f4f5a5cF09C90fE2', _SUSHI_ADDRESS[exports.ChainId.ROPSTEN] = '', _SUSHI_ADDRESS[exports.ChainId.RINKEBY] = '0x0769fd68dFb93167989C6f7254cd0D766Fb2841F', _SUSHI_ADDRESS[exports.ChainId.GÖRLI] = '0x0769fd68dFb93167989C6f7254cd0D766Fb2841F', _SUSHI_ADDRESS[exports.ChainId.KOVAN] = '0x0769fd68dFb93167989C6f7254cd0D766Fb2841F', _SUSHI_ADDRESS[exports.ChainId.FANTOM] = '', _SUSHI_ADDRESS[exports.ChainId.FANTOM_TESTNET] = '', _SUSHI_ADDRESS[exports.ChainId.MATIC] = '', _SUSHI_ADDRESS[exports.ChainId.MATIC_TESTNET] = '', _SUSHI_ADDRESS[exports.ChainId.XDAI] = '', _SUSHI_ADDRESS[exports.ChainId.BSC] = '', _SUSHI_ADDRESS[exports.ChainId.BSC_TESTNET] = '', _SUSHI_ADDRESS[exports.ChainId.ARBITRUM] = '', _SUSHI_ADDRESS[exports.ChainId.MOONBASE] = '', _SUSHI_ADDRESS[exports.ChainId.AVALANCHE] = '', _SUSHI_ADDRESS[exports.ChainId.FUJI] = '', _SUSHI_ADDRESS[exports.ChainId.OKCHAIN_TEST] = DefaultChainToken[exports.ChainId.OKCHAIN_TEST].ZOO.address, _SUSHI_ADDRESS[exports.ChainId.OKCHAIN] = '0xd00ae08403B9bbb9124bB305C09058E32C39A48c', _SUSHI_ADDRESS[exports.ChainId.HECO] = '', _SUSHI_ADDRESS[exports.ChainId.OASISETH_MAIN] = '', _SUSHI_ADDRESS[exports.ChainId.OASISETH_TEST] = '', _SUSHI_ADDRESS[exports.ChainId.HECO_TESTNET] = '', _SUSHI_ADDRESS); // 平台币
 
 var ECOSYSTEM_TOKEN_ADDRESS = SUSHI_ADDRESS;
 
@@ -1522,93 +1522,6 @@ var Trade = /*#__PURE__*/function () {
   return Trade;
 }();
 
-var AttenuationReward = /*#__PURE__*/function () {
-  function AttenuationReward(args) {
-    this.startBlock = args.startBlock;
-    this.zooPerBlock = args.zooPerBlock;
-    this.halfAttenuationCycle = args.halfAttenuationCycle;
-  }
-
-  var _proto = AttenuationReward.prototype;
-
-  _proto.getZooRewardBetween = function getZooRewardBetween(start, end) {
-    var _this = this;
-
-    var getZooReardFromStart = function getZooReardFromStart(end) {
-      if (start < _this.startBlock || end < _this.startBlock || start > end) {
-        return new decimal_js.Decimal(0);
-      }
-
-      var cycle = Math.floor((end - _this.startBlock) / _this.halfAttenuationCycle);
-
-      if (cycle > 255) {
-        cycle = 255;
-      }
-
-      var attenuationMul = 1 << cycle;
-      var multiply = 1000000;
-      var rest = JSBI.BigInt(Math.floor(multiply * (_this.halfAttenuationCycle * 2 - _this.halfAttenuationCycle / attenuationMul - (_this.halfAttenuationCycle - (end - _this.startBlock) % _this.halfAttenuationCycle) / attenuationMul)));
-      var re = new decimal_js.Decimal(_this.zooPerBlock.toString(10)).mul(new decimal_js.Decimal(rest.toString(10)).div(multiply));
-      return re;
-    };
-
-    return getZooReardFromStart(end).sub(getZooReardFromStart(start));
-  };
-
-  return AttenuationReward;
-}();
-var TradePool = /*#__PURE__*/function () {
-  function TradePool(data) {
-    Object.assign(this, data);
-  } // 显示用的helper 函数
-
-
-  var _proto2 = TradePool.prototype;
-
-  _proto2.getDayReturn = function getDayReturn(currBlockNo, rewardPrice, archorPrice) {
-    // one day ≈  21600 block
-    if (JSBI.greaterThan(this.totalLp, JSBI.BigInt(0))) {
-      // const oneDayReward = JSBI.divide(JSBI.BigInt(this.rewardConfig.getZooRewardBetween(currBlockNo,currBlockNo + 21600)) ,this.totalLp)
-      var oneDayReward = new decimal_js.Decimal(this.rewardConfig.getZooRewardBetween(currBlockNo, currBlockNo + 21600).toString()).div(new decimal_js.Decimal(this.totalLp.toString(10))); // 0.3% fee
-
-      return oneDayReward.div(new decimal_js.Decimal(rewardPrice)).div(new decimal_js.Decimal(archorPrice));
-    } else {
-      return new decimal_js.Decimal(0);
-    }
-  };
-
-  _proto2.getTotalReward = function getTotalReward(currenBlockNo) {
-    return JSBI.BigInt(this.rewardConfig.getZooRewardBetween(this.rewardConfig.startBlock, currenBlockNo));
-  };
-
-  return TradePool;
-}();
-var StakePool = /*#__PURE__*/function () {
-  function StakePool(data) {
-    Object.assign(this, data);
-  }
-
-  var _proto3 = StakePool.prototype;
-
-  _proto3.getDayReturn = function getDayReturn(currBlockNo, rewardPrice, token0Price, token1Price) {
-    // one day ≈  21600 block
-    if (JSBI.greaterThan(this.totalLpInPark, JSBI.BigInt(0))) {
-      //const oneDayReward = JSBI.divide(JSBI.BigInt(this.rewardConfig.getZooRewardBetween(currBlockNo,currBlockNo + 21600)) ,this.totalLpInPark)
-      var oneDayReward = new decimal_js.Decimal(this.rewardConfig.getZooRewardBetween(currBlockNo, currBlockNo + 21600).toString()).div(new decimal_js.Decimal(this.totalLp.toString(10))); //       oneDayReward Price /OneDay reward * 100000
-      // 0.3% fee
-
-      return oneDayReward.mul(new decimal_js.Decimal(rewardPrice)).div(new decimal_js.Decimal(this.token0Balance.toString(10)).mul(token0Price).div(new decimal_js.Decimal(this.totalLpInPark.toString(10))).add(new decimal_js.Decimal(this.token1Balance.toString(10)).mul(token1Price).div(new decimal_js.Decimal(this.totalLpInPark.toString(10)))));
-    } else {
-      return new decimal_js.Decimal(0);
-    }
-  };
-
-  return StakePool;
-}();
-function jsbiFloor(val) {
-  return JSBI.BigInt(Math.floor(val));
-}
-
 function toHex(currencyAmount) {
   return "0x" + currencyAmount.raw.toString(16);
 }
@@ -1813,7 +1726,6 @@ var Fetcher = /*#__PURE__*/function () {
 }();
 
 exports.JSBI = JSBI;
-exports.AttenuationReward = AttenuationReward;
 exports.BAR_ADDRESS = BAR_ADDRESS;
 exports.Currency = Currency;
 exports.CurrencyAmount = CurrencyAmount;
@@ -1837,12 +1749,10 @@ exports.ROUTER_ADDRESS = ROUTER_ADDRESS;
 exports.Route = Route;
 exports.Router = Router;
 exports.SUSHI_ADDRESS = SUSHI_ADDRESS;
-exports.StakePool = StakePool;
 exports.TIMELOCK_ADDRESS = TIMELOCK_ADDRESS;
 exports.Token = Token;
 exports.TokenAmount = TokenAmount;
 exports.Trade = Trade;
-exports.TradePool = TradePool;
 exports.WETH = WETH;
 exports.ZERO = ZERO;
 exports.ZOO_MINI_PARK_ADDRESS = ZOO_MINI_PARK_ADDRESS;
@@ -1852,6 +1762,5 @@ exports.ZOO_SWAP_MINING_ADDRESS = ZOO_SWAP_MINING_ADDRESS;
 exports.ZOO_ZAP_ADDRESS = ZOO_ZAP_ADDRESS;
 exports.currencyEquals = currencyEquals;
 exports.inputOutputComparator = inputOutputComparator;
-exports.jsbiFloor = jsbiFloor;
 exports.tradeComparator = tradeComparator;
 //# sourceMappingURL=bling-sdk.cjs.development.js.map

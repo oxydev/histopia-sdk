@@ -69,7 +69,6 @@ export const DefaultChainToken = {
     USDT: new Token(ChainId.ROPSTEN, '0xcA8A7B55A04A9fdE7Ae7bf128384fa330F81A19c', 12, 'USDT', 'USDT'),
     BTC: new Token(ChainId.ROPSTEN, '0xe6c87C360C24EfC6FEf4DCeFeD5607b0adaCf936', 15, 'BTC', 'BTC'),
     ETH: new Token(ChainId.ROPSTEN, '0xf72C1522a1d430464f194295bC3EF0f2F479459D', 18, 'ETH', 'ETH'),
-    YUZU: new Token(ChainId.ROPSTEN, '0x015e3f7A499B4bdD2104470b1324d5940C3447AC', 18, 'YUZU', 'YUZU'),
   },
   [ChainId.OKCHAIN]: {
     USDT: new Token(ChainId.OKCHAIN_TEST, '0x382bB369d343125BfB2117af9c149795C6C65C50', 18, 'USDT', 'USDT'),
@@ -94,7 +93,7 @@ export const DefaultChainToken = {
   [ChainId.OASISETH_MAIN]: {
     ETH: new Token(ChainId.OASISETH_MAIN, '0x3223f17957Ba502cbe71401D55A0DB26E5F7c68F', 18, 'wETH', 'wETH'),
     USDT: new Token(ChainId.OASISETH_MAIN, '0xdC19A122e268128B5eE20366299fc7b5b199C8e3', 6, 'weUSDT', 'weUSDT'),
-    YUZU: new Token(ChainId.OASISETH_MAIN, '0xf02b3e437304892105992512539F769423a515Cb', 18, 'YUZU', 'YUZU'),
+    BLING: new Token(ChainId.OASISETH_MAIN, '0xf02b3e437304892105992512539F769423a515Cb', 18, 'BLING', 'BLING'),
   },
   [ChainId.HECO]: {
     ETH: new Token(ChainId.HECO, '0x64FF637fB478863B7468bc97D30a5bF3A428a1fD', 18, 'ETH', 'ETH'),
@@ -121,9 +120,8 @@ export const DefaultChainToken = {
   [ChainId.OASISETH_TEST]: {
     ETH: new Token(ChainId.OASISETH_TEST, '0xB38C1c2b5b0963428642eC55a320b429f21E180C', 18, 'ETH', 'ETH'),
     USDT: new Token(ChainId.OASISETH_TEST, '0xC584fFD011e16A10fd8329853B9B8DE6E0313AD9', 18, 'USDT', 'USDT'),
-    BTC: new Token(ChainId.OASISETH_TEST, '0x961C7a3f1909243C9af056Fd11EdDa2e18b35C7b', 18, 'BTC', 'BTC'),
-    YUZU: new Token(ChainId.OASISETH_TEST, '0x59e573F48D379D95064811e3C59546f2f350bb2b', 18, 'YUZU', 'YUZU'),
-  },
+    BTC: new Token(ChainId.OASISETH_TEST, '0x961C7a3f1909243C9af056Fd11EdDa2e18b35C7b', 18, 'BTC', 'BTC')
+    },
 }
 // In reality this is a map of the wrapped version of the native token for a given network.
 // TODO: Rename to WNATIVE for sanity
@@ -233,7 +231,7 @@ export const WETH = {
 
 export const SUSHI_ADDRESS: { [chainId in ChainId]: string } = {
   [ChainId.MAINNET]: '0x6B3595068778DD592e39A122f4f5a5cF09C90fE2',
-  [ChainId.ROPSTEN]: DefaultChainToken[ChainId.ROPSTEN].YUZU.address,
+  [ChainId.ROPSTEN]: '',
   [ChainId.RINKEBY]: '0x0769fd68dFb93167989C6f7254cd0D766Fb2841F',
   [ChainId.GÖRLI]: '0x0769fd68dFb93167989C6f7254cd0D766Fb2841F',
   [ChainId.KOVAN]: '0x0769fd68dFb93167989C6f7254cd0D766Fb2841F',
@@ -252,7 +250,7 @@ export const SUSHI_ADDRESS: { [chainId in ChainId]: string } = {
   [ChainId.OKCHAIN]: '0xd00ae08403B9bbb9124bB305C09058E32C39A48c',
   [ChainId.HECO]: '',
   [ChainId.OASISETH_MAIN]: '',
-  [ChainId.OASISETH_TEST]: DefaultChainToken[ChainId.OASISETH_TEST].YUZU.address,
+  [ChainId.OASISETH_TEST]: '',
   [ChainId.HECO_TESTNET]: ''
 }
 // 平台币

@@ -80,6 +80,8 @@ export class Currency {
     if (!(chainId in Currency.NATIVE)) {
       throw Error(`No native currency defined for chainId ${chainId}`)
     }
+    console.log(Currency.NATIVE[chainId]);
+    
     return Currency.NATIVE[chainId]
   }
 
@@ -100,6 +102,8 @@ export class Currency {
 
     
     if (this?.symbol === 'ETH') {
+      console.log(Currency.getNativeCurrencySymbol(chainId));
+      
       return Currency.getNativeCurrencySymbol(chainId)
     }
     
@@ -107,7 +111,8 @@ export class Currency {
     if (this?.symbol === 'WETH') {
       return `W${Currency.getNativeCurrencySymbol(chainId)}`
     }
-
+    console.log(this?.symbol);
+      
     return this?.symbol
   }
 
