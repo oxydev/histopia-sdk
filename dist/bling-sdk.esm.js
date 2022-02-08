@@ -7,6 +7,7 @@ import _Big from 'big.js';
 import toFormat from 'toformat';
 import _Decimal from 'decimal.js-light';
 import { keccak256, pack } from '@ethersproject/solidity';
+import { Decimal as Decimal$1 } from 'decimal.js';
 import { Contract } from '@ethersproject/contracts';
 import { getNetwork } from '@ethersproject/networks';
 import { getDefaultProvider } from '@ethersproject/providers';
@@ -407,7 +408,6 @@ var Currency = /*#__PURE__*/function () {
       throw Error("No native currency defined for chainId " + chainId);
     }
 
-    console.log(Currency.NATIVE[chainId]);
     return Currency.NATIVE[chainId];
   };
 
@@ -429,7 +429,6 @@ var Currency = /*#__PURE__*/function () {
     }
 
     if ((this === null || this === void 0 ? void 0 : this.symbol) === 'ETH') {
-      console.log(Currency.getNativeCurrencySymbol(chainId));
       return Currency.getNativeCurrencySymbol(chainId);
     }
 
@@ -437,7 +436,6 @@ var Currency = /*#__PURE__*/function () {
       return "W" + Currency.getNativeCurrencySymbol(chainId);
     }
 
-    console.log(this === null || this === void 0 ? void 0 : this.symbol);
     return this === null || this === void 0 ? void 0 : this.symbol;
   };
 
@@ -1267,7 +1265,7 @@ var Trade = /*#__PURE__*/function () {
     var nextPairs = new Array(route.pairs.length);
 
     if (tradeType === TradeType.EXACT_INPUT) {
-      console.log(amount, route.input);
+      // console.log(amount, route.input);
       !currencyEquals(amount.currency, route.input) ? process.env.NODE_ENV !== "production" ? invariant(false, 'INPUT') : invariant(false) : void 0;
       amounts[0] = wrappedAmount(amount, route.chainId);
 
@@ -1526,6 +1524,57 @@ var Trade = /*#__PURE__*/function () {
   return Trade;
 }();
 
+var AttenuationReward = /*#__PURE__*/function () {
+  function AttenuationReward(args) {
+    this.startBlock = args.startBlock;
+    this.zooPerBlock = args.zooPerBlock;
+  }
+
+  var _proto = AttenuationReward.prototype;
+
+  _proto.getZooRewardBetween = function getZooRewardBetween(start, end) {
+    var _this = this;
+
+    var getZooReardFromStart = function getZooReardFromStart(end) {
+      if (start < _this.startBlock || end < _this.startBlock || start > end) {
+        return new Decimal$1(0);
+      }
+
+      var re = new Decimal$1(_this.zooPerBlock.toString(10)).mul(new Decimal$1(end.toString(10)).sub(new Decimal$1(start.toString(10))));
+      return re;
+    };
+
+    return getZooReardFromStart(end).sub(getZooReardFromStart(start));
+  };
+
+  return AttenuationReward;
+}();
+var StakePool = /*#__PURE__*/function () {
+  function StakePool(data) {
+    Object.assign(this, data);
+  }
+
+  var _proto2 = StakePool.prototype;
+
+  _proto2.getDayReturn = function getDayReturn(currBlockNo, rewardPrice, token0Price, token1Price) {
+    // one day ≈  21600 block
+    if (JSBI.greaterThan(this.totalLpInPark, JSBI.BigInt(0))) {
+      //const oneDayReward = JSBI.divide(JSBI.BigInt(this.rewardConfig.getZooRewardBetween(currBlockNo,currBlockNo + 21600)) ,this.totalLpInPark)
+      var oneDayReward = new Decimal$1(this.rewardConfig.getZooRewardBetween(currBlockNo, currBlockNo + 21600).toString()).div(new Decimal$1(this.totalLp.toString(10))); //       oneDayReward Price /OneDay reward * 100000
+      // 0.3% fee
+
+      return oneDayReward.mul(new Decimal$1(rewardPrice)).div(new Decimal$1(this.token0Balance.toString(10)).mul(token0Price).div(new Decimal$1(this.totalLpInPark.toString(10))).add(new Decimal$1(this.token1Balance.toString(10)).mul(token1Price).div(new Decimal$1(this.totalLpInPark.toString(10)))));
+    } else {
+      return new Decimal$1(0);
+    }
+  };
+
+  return StakePool;
+}();
+function jsbiFloor(val) {
+  return JSBI.BigInt(Math.floor(val));
+}
+
 function toHex(currencyAmount) {
   return "0x" + currencyAmount.raw.toString(16);
 }
@@ -1729,5 +1778,5 @@ var Fetcher = /*#__PURE__*/function () {
   return Fetcher;
 }();
 
-export { BAR_ADDRESS, ChainId, Currency, CurrencyAmount, DefaultChainToken, ECOSYSTEM_TOKEN_ADDRESS, ETHER, FACTORY_ADDRESS, Fetcher, Fraction, INIT_CODE_HASH, InsufficientInputAmountError, InsufficientReservesError, IsNative, MAKER_ADDRESS, MASTERCHEF_ADDRESS, MINIMUM_LIQUIDITY, Pair, Percent, Price, ROUTER_ADDRESS, Rounding, Route, Router, SUSHI_ADDRESS, TIMELOCK_ADDRESS, Token, TokenAmount, Trade, TradeType, WETH, ZERO, ZOO_MINI_PARK_ADDRESS, ZOO_PARK_EXT_ADDRESS, ZOO_PARK_EXT_PID, ZOO_SWAP_MINING_ADDRESS, ZOO_ZAP_ADDRESS, currencyEquals, inputOutputComparator, tradeComparator };
+export { AttenuationReward, BAR_ADDRESS, ChainId, Currency, CurrencyAmount, DefaultChainToken, ECOSYSTEM_TOKEN_ADDRESS, ETHER, FACTORY_ADDRESS, Fetcher, Fraction, INIT_CODE_HASH, InsufficientInputAmountError, InsufficientReservesError, IsNative, MAKER_ADDRESS, MASTERCHEF_ADDRESS, MINIMUM_LIQUIDITY, Pair, Percent, Price, ROUTER_ADDRESS, Rounding, Route, Router, SUSHI_ADDRESS, StakePool, TIMELOCK_ADDRESS, Token, TokenAmount, Trade, TradeType, WETH, ZERO, ZOO_MINI_PARK_ADDRESS, ZOO_PARK_EXT_ADDRESS, ZOO_PARK_EXT_PID, ZOO_SWAP_MINING_ADDRESS, ZOO_ZAP_ADDRESS, currencyEquals, inputOutputComparator, jsbiFloor, tradeComparator };
 //# sourceMappingURL=bling-sdk.esm.js.map

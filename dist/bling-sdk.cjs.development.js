@@ -12,6 +12,7 @@ var _Big = _interopDefault(require('big.js'));
 var toFormat = _interopDefault(require('toformat'));
 var _Decimal = _interopDefault(require('decimal.js-light'));
 var solidity = require('@ethersproject/solidity');
+var decimal_js = require('decimal.js');
 var contracts = require('@ethersproject/contracts');
 var networks = require('@ethersproject/networks');
 var providers = require('@ethersproject/providers');
@@ -407,7 +408,6 @@ var Currency = /*#__PURE__*/function () {
       throw Error("No native currency defined for chainId " + chainId);
     }
 
-    console.log(Currency.NATIVE[chainId]);
     return Currency.NATIVE[chainId];
   };
 
@@ -429,7 +429,6 @@ var Currency = /*#__PURE__*/function () {
     }
 
     if ((this === null || this === void 0 ? void 0 : this.symbol) === 'ETH') {
-      console.log(Currency.getNativeCurrencySymbol(chainId));
       return Currency.getNativeCurrencySymbol(chainId);
     }
 
@@ -437,7 +436,6 @@ var Currency = /*#__PURE__*/function () {
       return "W" + Currency.getNativeCurrencySymbol(chainId);
     }
 
-    console.log(this === null || this === void 0 ? void 0 : this.symbol);
     return this === null || this === void 0 ? void 0 : this.symbol;
   };
 
@@ -1267,7 +1265,7 @@ var Trade = /*#__PURE__*/function () {
     var nextPairs = new Array(route.pairs.length);
 
     if (tradeType === exports.TradeType.EXACT_INPUT) {
-      console.log(amount, route.input);
+      // console.log(amount, route.input);
       !currencyEquals(amount.currency, route.input) ?  invariant(false, 'INPUT')  : void 0;
       amounts[0] = wrappedAmount(amount, route.chainId);
 
@@ -1526,6 +1524,57 @@ var Trade = /*#__PURE__*/function () {
   return Trade;
 }();
 
+var AttenuationReward = /*#__PURE__*/function () {
+  function AttenuationReward(args) {
+    this.startBlock = args.startBlock;
+    this.zooPerBlock = args.zooPerBlock;
+  }
+
+  var _proto = AttenuationReward.prototype;
+
+  _proto.getZooRewardBetween = function getZooRewardBetween(start, end) {
+    var _this = this;
+
+    var getZooReardFromStart = function getZooReardFromStart(end) {
+      if (start < _this.startBlock || end < _this.startBlock || start > end) {
+        return new decimal_js.Decimal(0);
+      }
+
+      var re = new decimal_js.Decimal(_this.zooPerBlock.toString(10)).mul(new decimal_js.Decimal(end.toString(10)).sub(new decimal_js.Decimal(start.toString(10))));
+      return re;
+    };
+
+    return getZooReardFromStart(end).sub(getZooReardFromStart(start));
+  };
+
+  return AttenuationReward;
+}();
+var StakePool = /*#__PURE__*/function () {
+  function StakePool(data) {
+    Object.assign(this, data);
+  }
+
+  var _proto2 = StakePool.prototype;
+
+  _proto2.getDayReturn = function getDayReturn(currBlockNo, rewardPrice, token0Price, token1Price) {
+    // one day ≈  21600 block
+    if (JSBI.greaterThan(this.totalLpInPark, JSBI.BigInt(0))) {
+      //const oneDayReward = JSBI.divide(JSBI.BigInt(this.rewardConfig.getZooRewardBetween(currBlockNo,currBlockNo + 21600)) ,this.totalLpInPark)
+      var oneDayReward = new decimal_js.Decimal(this.rewardConfig.getZooRewardBetween(currBlockNo, currBlockNo + 21600).toString()).div(new decimal_js.Decimal(this.totalLp.toString(10))); //       oneDayReward Price /OneDay reward * 100000
+      // 0.3% fee
+
+      return oneDayReward.mul(new decimal_js.Decimal(rewardPrice)).div(new decimal_js.Decimal(this.token0Balance.toString(10)).mul(token0Price).div(new decimal_js.Decimal(this.totalLpInPark.toString(10))).add(new decimal_js.Decimal(this.token1Balance.toString(10)).mul(token1Price).div(new decimal_js.Decimal(this.totalLpInPark.toString(10)))));
+    } else {
+      return new decimal_js.Decimal(0);
+    }
+  };
+
+  return StakePool;
+}();
+function jsbiFloor(val) {
+  return JSBI.BigInt(Math.floor(val));
+}
+
 function toHex(currencyAmount) {
   return "0x" + currencyAmount.raw.toString(16);
 }
@@ -1730,6 +1779,7 @@ var Fetcher = /*#__PURE__*/function () {
 }();
 
 exports.JSBI = JSBI;
+exports.AttenuationReward = AttenuationReward;
 exports.BAR_ADDRESS = BAR_ADDRESS;
 exports.Currency = Currency;
 exports.CurrencyAmount = CurrencyAmount;
@@ -1753,6 +1803,7 @@ exports.ROUTER_ADDRESS = ROUTER_ADDRESS;
 exports.Route = Route;
 exports.Router = Router;
 exports.SUSHI_ADDRESS = SUSHI_ADDRESS;
+exports.StakePool = StakePool;
 exports.TIMELOCK_ADDRESS = TIMELOCK_ADDRESS;
 exports.Token = Token;
 exports.TokenAmount = TokenAmount;
@@ -1766,5 +1817,6 @@ exports.ZOO_SWAP_MINING_ADDRESS = ZOO_SWAP_MINING_ADDRESS;
 exports.ZOO_ZAP_ADDRESS = ZOO_ZAP_ADDRESS;
 exports.currencyEquals = currencyEquals;
 exports.inputOutputComparator = inputOutputComparator;
+exports.jsbiFloor = jsbiFloor;
 exports.tradeComparator = tradeComparator;
 //# sourceMappingURL=bling-sdk.cjs.development.js.map
