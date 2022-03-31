@@ -24,6 +24,11 @@ export declare class Token extends Currency {
  * Compares two currencies for equality
  */
 export declare function currencyEquals(currencyA: Currency, currencyB: Currency): boolean;
+export declare const SUSHI: {
+    1: {
+        BLING: Token;
+    };
+};
 export declare const DefaultChainToken: {
     1: {};
     3: {

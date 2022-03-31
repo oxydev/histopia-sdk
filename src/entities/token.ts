@@ -59,7 +59,11 @@ export function currencyEquals(currencyA: Currency, currencyB: Currency): boolea
     return currencyA === currencyB
   }
 }
-
+export const SUSHI = {
+  [ChainId.MAINNET]:{
+    BLING: new Token(ChainId.OASISETH_MAIN, '0xf02b3e437304892105992512539F769423a515Cb', 18, 'BLING', 'BLING')
+  }
+}
 export const DefaultChainToken = {
   [ChainId.MAINNET]: {},
   [ChainId.ROPSTEN]: {
@@ -219,7 +223,7 @@ export const WETH = {
   [ChainId.OKCHAIN]: DefaultChainToken[ChainId.OKCHAIN_TEST].WOKT,
   [ChainId.OASISETH_MAIN]: new Token(
     ChainId.OASISETH_MAIN,
-    '0xC513742aA874445DE5612Ed849b73426Dff086CF',
+    '0x21C718C22D52d0F3a789b752D4c2fD5908a8A733',
     18,
     'wROSE',
     'Wrapped ROSE'
