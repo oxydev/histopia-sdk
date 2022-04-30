@@ -217,7 +217,7 @@ export const BAR_ADDRESS: { [chainId in ChainId]: string } = {
   [ChainId.OKCHAIN]: '',
   [ChainId.FUJI]: '',
   [ChainId.HECO]: '',
-  [ChainId.OASISETH_MAIN] :'0x90EEd7aa7CCB7A491FC4D9e872F6a65AA4D8d48A',
+  [ChainId.OASISETH_MAIN] :'0x25070fA2244b41EA39B964DBFA9E0ab70A886e72',
   [ChainId.OASISETH_TEST] :'',
   [ChainId.HECO_TESTNET]: ''
 }

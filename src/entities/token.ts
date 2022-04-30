@@ -61,7 +61,7 @@ export function currencyEquals(currencyA: Currency, currencyB: Currency): boolea
 }
 export const SUSHI = {
   [ChainId.MAINNET]:{
-    BLING: new Token(ChainId.OASISETH_MAIN, '0x007906a1f7f34865d6bAc41eeD4Ea3ffF4eE7cf4', 18, 'BLING', 'BLING')
+    BLING: new Token(ChainId.OASISETH_MAIN, '0x72Ad551af3c884d02e864B182aD9A34EE414C36C', 18, 'BLING', 'BLING')
   }
 }
 export const DefaultChainToken = {
@@ -258,7 +258,7 @@ export const SUSHI_ADDRESS: { [chainId in ChainId]: string } = {
   [ChainId.OKCHAIN_TEST]: DefaultChainToken[ChainId.OKCHAIN_TEST].ZOO.address,
   [ChainId.OKCHAIN]: '0xd00ae08403B9bbb9124bB305C09058E32C39A48c',
   [ChainId.HECO]: '',
-  [ChainId.OASISETH_MAIN]: '0x007906a1f7f34865d6bAc41eeD4Ea3ffF4eE7cf4',
+  [ChainId.OASISETH_MAIN]: '0x72Ad551af3c884d02e864B182aD9A34EE414C36C',
   [ChainId.OASISETH_TEST]: '',
   [ChainId.HECO_TESTNET]: ''
 }
