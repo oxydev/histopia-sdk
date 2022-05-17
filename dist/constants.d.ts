@@ -4,7 +4,6 @@ export declare enum ChainId {
     MAINNET = 1,
     ROPSTEN = 3,
     RINKEBY = 4,
-    GÖRLI = 5,
     KOVAN = 42,
     MATIC = 137,
     MATIC_TESTNET = 80001,
@@ -22,7 +21,9 @@ export declare enum ChainId {
     HECO = 128,
     HECO_TESTNET = 256,
     OASISETH_MAIN = 42262,
-    OASISETH_TEST = 42261
+    OASISETH_TEST = 42261,
+    BOBA_MAIN = 288,
+    BOBA_TEST = 28
 }
 export declare enum TradeType {
     EXACT_INPUT = 0,
