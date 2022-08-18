@@ -31,6 +31,8 @@ export enum ChainId {
   OASISETH_TEST = 42261,
   BOBA_MAIN = 288,
   BOBA_TEST = 28,
+  AURORA = 1313161554,
+  AURORA_TEST = 1313161555,
 }
 
 export enum TradeType {
@@ -71,6 +73,8 @@ export const FACTORY_ADDRESS: { [chainId in ChainId]: string } = {
   [ChainId.OASISETH_TEST] :'0x72A2937B8eedBF6F0b6d110F0E0Ff2f613ED2f08',
   [ChainId.BOBA_MAIN] :'',
   [ChainId.BOBA_TEST] :'',
+  [ChainId.AURORA] :'',
+  [ChainId.AURORA_TEST] :'',
 }
 
 export const ROUTER_ADDRESS: { [chainId in ChainId]: string } = {
@@ -97,6 +101,8 @@ export const ROUTER_ADDRESS: { [chainId in ChainId]: string } = {
   [ChainId.OASISETH_TEST] :'0x36F169362228C73629Ed22512792eA5FB2cD8c2a',
   [ChainId.BOBA_MAIN] :'',
   [ChainId.BOBA_TEST] :'',
+  [ChainId.AURORA] :'',
+  [ChainId.AURORA_TEST] :'',
 }
 
 
@@ -199,6 +205,8 @@ export const MASTERCHEF_ADDRESS: { [chainId in ChainId]: string } = {
   [ChainId.HECO_TESTNET]: '',
   [ChainId.BOBA_MAIN] :'',
   [ChainId.BOBA_TEST] :'',
+  [ChainId.AURORA] :'',
+  [ChainId.AURORA_TEST] :'',
 }
 
 export const BAR_ADDRESS: { [chainId in ChainId]: string } = {
@@ -225,6 +233,8 @@ export const BAR_ADDRESS: { [chainId in ChainId]: string } = {
   [ChainId.HECO_TESTNET]: '',
   [ChainId.BOBA_MAIN] :'',
   [ChainId.BOBA_TEST] :'',
+  [ChainId.AURORA] :'',
+  [ChainId.AURORA_TEST] :'',
 }
 
 export const MAKER_ADDRESS: { [chainId in ChainId]: string } = {
@@ -251,6 +261,8 @@ export const MAKER_ADDRESS: { [chainId in ChainId]: string } = {
   [ChainId.HECO_TESTNET]: '',
   [ChainId.BOBA_MAIN] :'',
   [ChainId.BOBA_TEST] :'',
+  [ChainId.AURORA] :'',
+  [ChainId.AURORA_TEST] :'',
 }
 
 export const TIMELOCK_ADDRESS: { [chainId in ChainId]: string } = {
@@ -277,4 +289,6 @@ export const TIMELOCK_ADDRESS: { [chainId in ChainId]: string } = {
   [ChainId.HECO_TESTNET]: '',
   [ChainId.BOBA_MAIN] :'',
   [ChainId.BOBA_TEST] :'',
+  [ChainId.AURORA] :'',
+  [ChainId.AURORA_TEST] :'',
 }

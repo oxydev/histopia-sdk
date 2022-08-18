@@ -23,7 +23,9 @@ export declare enum ChainId {
     OASISETH_MAIN = 42262,
     OASISETH_TEST = 42261,
     BOBA_MAIN = 288,
-    BOBA_TEST = 28
+    BOBA_TEST = 28,
+    AURORA = 1313161554,
+    AURORA_TEST = 1313161555
 }
 export declare enum TradeType {
     EXACT_INPUT = 0,
