@@ -1,1 +1,1 @@
-# bling-sdk
+# Histopia-sdk
